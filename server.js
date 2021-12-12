@@ -26,7 +26,7 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-  const unix = new Date(req.params.date).getTime() / 1000;
+  const unix = new Date(req.params.date).getTime();
   res.json({
     unix: unix,
     utc: null
