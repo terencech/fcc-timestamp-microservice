@@ -26,12 +26,15 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-  const unix = new Date(req.params.date).getTime();
+  let unix = undefined;
+  if (req.params.date.match(/^\d{4}-[0-1][0-9]-[0-3][0-9]/)) {
+    unix = new Date(req.params.date).getTime();
+  }
   res.json({
     unix: unix,
     utc: null
-  })
-})
+  });
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
