@@ -27,12 +27,15 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date", function (req, res) {
   let unix = undefined;
+  let utc = undefined;
   if (req.params.date.match(/^\d{4}-[0-1][0-9]-[0-3][0-9]/)) {
-    unix = new Date(req.params.date).getTime();
+    const date = new Date(req.params.date);
+    unix = date.getTime();
+    utc = date.toUTCString();
   }
   res.json({
     unix: unix,
-    utc: null
+    utc: utc
   });
 });
 
