@@ -26,16 +26,12 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-  let unix = undefined;
-  let utc = undefined;
-  if (req.params.date.match(/^\d{4}-[0-1][0-9]-[0-3][0-9]/)) {
-    const date = new Date(req.params.date);
-    unix = date.getTime();
-    utc = date.toUTCString();
-  }
+  let date;
+  req.params.date.match(/\d{13}/) ? date = new Date(Number.parseInt(req.params.date)) : date = new Date(req.params.date);
+
   res.json({
-    unix: unix,
-    utc: utc
+    unix: date.getTime(),
+    utc: date.toUTCString()
   });
 });
 
